@@ -1,0 +1,7 @@
+Plugins:
+
+Pipeline stage view
+AnsiColor
+Pipeline Utility Steps __> read json files
+Nexus Artifact Uploader
+Blue Ocean

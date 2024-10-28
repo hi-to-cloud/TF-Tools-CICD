@@ -1,0 +1,98 @@
+In jenkins there are few steps __> pre build, build, post build
+
+pre build __> set up environment configuration
+build __> perform actual stages
+post build __> clean up, mandatory tasks after build stage done
+
+2 Styles of ways of writing Pipeline
+- scripted way __> old
+- declarative way __> easy to write
+
+agents __> if we want to test code in different flavors of OS environment (windows, linux, macos), mobile environment
+
+jenkins ___> master & node
+master __> linux
+node __> agents __> different environment's
+
+configure agent 
+-----------------
+1. when work is there, master calls agent, assign work __> Push Based Architecture __> launch agent via SSH
+2. daily agent come online to master, ask work __> Pull Based Architecture __> lot of resources waste __> launch agent by connecting it to the controller
+
+
+only Push Based Architecture is preferred while configure agents
+
+Shell __> ${ NAME }
+Ansible __> {{ NAME }}
+Terraform __> var.NAME
+jenkins __> ${ params.NAME }, $appVersion
+
+Webhook inside github
+---------------------
+http://xx.xx.xx.xx:8080/github-webhook/
+
+Disable Node Monitoring
+-----------------------
+Dashboard __> Manage Jenkins __> Nodes __> Configure Node Monitors __> Don't mark agents temporarily offline __> save 
+
+Setup Node
+----------
+Dashboard __> Nodes __> New node __> hi-to-cloud __> save
+
+Setup Job
+---------
+Create IAM Role __> Admin Access __> Attach to Jenkins-Node
+
+CI-CD
+------
+CI __> continuous integration __> push to artifactory
+- install dependencies __> mvn install, npm install, pip install requirements.txt, ...etc __> .zip, .jar, .war
+- upload zip/jar to artifactory __> jfrog, nexus
+
+Devops Engineer __> Build tool & file only
+---------------
+- java __> maven __> pom.xml
+- python __> pip __> requirements.txt
+- NodeJS __> npm __> package.json
+- .Net __> Nuget __> project.json
+
+ZIP
+---
+zip -r <file-name> <what-files-add>
+zip -q -r backend-${appVersion}.zip * 
+-q is to quit logs generated while zip file
+
+Nexus 
+-----
+Git __> code 
+Nexus __> store artifacts
+
+ssh -i vpn-001.pem ubuntu@nexus.step-into-iot.cloud
+
+http://nexus.step-into-iot.cloud:8081/
+admin 
+Abc@12345
+- enable anonymous access
+
+maven artifactory
+com.expense __> group id 
+backend __> artifact id 
+1.0.0 __> version
+
+create maven2 hosted (mixed, Inline, Permissive, Allow redeploy)
+http://nexus.step-into-iot.cloud:8081/repository/backend/
+
+CI __> push to Nexus
+http://nexus.step-into-iot.cloud:8081/repository/backend/com/expense/backend/1.0.0/backend-1.0.0.zip
+
+CD __> Deploy to EC2
+After CI __> CD need to be trigger 
+
+CI __> up stream
+CD __> down stream
+
+CI we have appVersion __> send to CD with help of parameters
+CD we have to take appVersion, pass to ansible playbook via pull mechanism
+modify ansible roles to download package from nexus, configure ec2
+
+Modify SG to allow from Jenkins
