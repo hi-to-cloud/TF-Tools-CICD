@@ -96,3 +96,44 @@ CD we have to take appVersion, pass to ansible playbook via pull mechanism
 modify ansible roles to download package from nexus, configure ec2
 
 Modify SG to allow from Jenkins
+
+unit testing __> test the functionality of methods
+Static Source Code Analysis __> scan code, give recommendations __> SonarQube
+SAST __> Security related things, analysis given to developers, fix it
+DAST __> Dynamic Security, real time attack code  internally
+Open Source Libraries scan __> scan libraries, frequently upgraded to LTS version
+Docker Image Scan __> Scan Docker Images
+
+After this code __> Clean Code __> Deploy to Dev
+
+Functional testing __> developers
+integration testing __> perform by QA teams
+
+SonarQube
+---------
+http://sonar.step-into-iot.cloud:9000/
+admin 
+instance-id 
+Abc@12345
+
+Inside Jenkins 
+--------------
+- Install sonar Scanner/sonar CLI/ sonar agent __> Tool 
+Dashboard __> Manage Jenkins __> Tools __> SonarQube Scanner installations __> sonar __> Install automatically __> save 
+- we need to configure it SonarQube Scanner
+Dashboard __> Manage Jenkins __> system __> SonarQube installations __> sonar __> http://sonar.step-into-iot.cloud:9000 __> sonar-auth __> save
+
+Why we are not Install all this NExus??
+- Nexus use API calls internally __> curl to push artifact
+
+Need to have this file in application code __> sonar-project.properties
+
+Quality Gate 
+------------
+- overall code  __> prefer this
+- new code 
+its better to include both on quality gate __> set as default in UI 
+
+if quality gate fail then jenkins pipeline need to fail
+- sonarqube need to send information to jenkins __> webhook inside SonarQube __> http://jenkins.step-into-iot.cloud:8080/sonarqube-webhook/ __> create 
+

@@ -5,3 +5,4 @@ AnsiColor
 Pipeline Utility Steps __> read json files
 Nexus Artifact Uploader
 Blue Ocean
+SonarQube Scanner
